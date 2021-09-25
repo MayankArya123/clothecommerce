@@ -21,8 +21,8 @@ function App() {
     <Header/>
 
      <Switch>
-
-    <Route path="/" exact component={Content}/>
+  
+                   <Route path="/" exact component={Content}/>
 
     <Route path="/admin" exact component={AdminPanel} />
 

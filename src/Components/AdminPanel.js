@@ -1,44 +1,44 @@
-import React, { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../Components/Firebase";
+import React, { useState } from "react"
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "../Components/Firebase"
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
-} from "firebase/storage";
+} from "firebase/storage"
 
 function AdminPanel() {
-  const [Title, setTitle] = useState("");
-  const [Price, setPrice] = useState("");
-  const [Image, setImage] = useState(null);
-  const [Url, setUrl] = useState("");
-  const [Progress, setProgress] = useState(0);
-  const [Message, setMessage] = useState("");
-  const [ErrorMessage, setErrorMessage] = useState("");
-  const [Flag, setFlag] = useState();
+  const [Title, setTitle] = useState("")
+  const [Price, setPrice] = useState("")
+  const [Image, setImage] = useState(null)
+  const [Url, setUrl] = useState("")
+  const [Progress, setProgress] = useState(0)
+  const [Message, setMessage] = useState("")
+  const [ErrorMessage, setErrorMessage] = useState("")
+  const [Flag, setFlag] = useState()
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+      setImage(e.target.files[0])
     }
-  };
+  }
 
   const submit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!Title || !Price || !Image) {
-      setErrorMessage("please fill all the fields");
+      setErrorMessage("please fill all the fields")
     } else {
-      console.log("hittibg");
+      console.log("hittibg")
 
-      setFlag("wait -- uploading the product details");
+      setFlag("wait -- uploading the product details")
 
-      const storage = getStorage();
+      const storage = getStorage()
 
-      const storageRef = ref(storage, `Images/${Image.name}`);
+      const storageRef = ref(storage, `Images/${Image.name}`)
 
-      const uploadTask = uploadBytesResumable(storageRef, Image);
+      const uploadTask = uploadBytesResumable(storageRef, Image)
 
       uploadTask.on(
         "state_changed",
@@ -46,8 +46,8 @@ function AdminPanel() {
           // Observe state change events such as progress, pause, and resume
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log("Upload is " + progress + "% done")
 
           // switch (snapshot.state) {
           //   case 'paused':
@@ -60,33 +60,35 @@ function AdminPanel() {
         },
         (error) => {
           // Handle unsuccessful uploads
-          alert("error while uploading image", error);
+          alert("error while uploading image", error)
         },
         () => {
-          console.log("Uploaded a blob or file!");
-          setMessage("image uploaded successfully");
+          console.log("Uploaded a blob or file!")
+          setMessage("image uploaded successfully")
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
+            console.log("File available at", downloadURL)
             addDoc(collection(db, "products"), {
               title: Title,
               price: Price,
               productImg: downloadURL,
             }).then((succs) => {
               if (succs) {
-                console.log(succs.id);
-                setFlag("uploaded");
-                alert("product details uploaded successfully ,now you can visit homepage to see the product");
+                console.log(succs.id)
+                setFlag("uploaded")
+                alert(
+                  "product details uploaded successfully ,now you can visit homepage to see the product"
+                )
               }
-            });
-          });
+            })
+          })
 
           // Add a new document with a generated id.
         }
-      );
+      )
     }
-  };
+  }
 
   // 'file' comes from the Blob or File API
   // uploadBytes(storageRef, Image).then((snapshot) => {
@@ -162,7 +164,7 @@ function AdminPanel() {
           product price
         </label>
         <input
-          type="password"
+          type="name"
           class="form-control"
           id="exampleInputPassword1"
           onChange={(e) => setPrice(e.target.value)}
@@ -186,7 +188,7 @@ function AdminPanel() {
 
       {Flag}
     </form>
-  );
+  )
 }
 
-export default AdminPanel;
+export default AdminPanel
