@@ -75,6 +75,9 @@ html {
 
 .banner h2 {
   font-size: 4.2rem;
+  color: blueviolet;
+
+  font-weight: 700;
 }
 
 .banner img {
@@ -184,6 +187,17 @@ html {
 }
 
 @media screen and (max-width: 400px) {
+     
+
+  .flash-sale {
+
+      padding-top: 2em;
+      padding-bottom: 2em;
+      padding-left: 1em;
+      padding-right: 1em;
+
+  }
+
   .banner h2 {
       font-size: 1.8rem;
   }

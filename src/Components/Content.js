@@ -153,7 +153,7 @@ function Content() {
             Banners.length > 0 &&
             Banners.map((EB, index) => {
               return (
-                <div className="banner col-10  col-sm-6 col-md-3 col-lg-8">
+                <div className="banner col-10  col-sm-8 col-md-8 col-lg-8">
                   <div className={EB.BannerContent}>
                     <h2> {EB.BannerTitle} </h2>
 

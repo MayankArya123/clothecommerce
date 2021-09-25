@@ -78,6 +78,8 @@ function BannerForm() {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+
+
             console.log("File available at", downloadURL);
             addDoc(collection(db, "banners"), {
               BannerTitle: BannerTitle,
@@ -91,6 +93,8 @@ function BannerForm() {
                 alert("banner details uploaded successfully,now you can visit homepage to see the product");
               }
             });
+
+
           });
 
           // Add a new document with a generated id.
@@ -204,8 +208,8 @@ function BannerForm() {
           {" "}
           upload banner image{" "}
         </label>
-        <input type="file" onChange={handleChange} />
         &nbsp; &nbsp; &nbsp;
+        <input type="file" onChange={handleChange} />
 
         {Message}
       </div>
